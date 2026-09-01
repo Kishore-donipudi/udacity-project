@@ -11,11 +11,15 @@ function MovieDetail({ movie }) {
     });
   }, [movie]);
 
+  if (!details) {
+    return <p>Loading movie details...</p>;
+  }
+
   return (
-    <div>
+    <article className="movieDetails">
       <h2>{details?.movie.title}</h2>
       <p>{details?.movie.description}</p>
-    </div>
+    </article>
   );
 }
 
