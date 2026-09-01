@@ -3,9 +3,18 @@ from flask.views import MethodView
 
 # Dummy database to hold movie examples
 movies = {
-    "123": {"title": "Top Gun: Maverick", "description": "Fighter planes"},
-    "456": {"title": "Sonic the Hedgehog", "description": "Blue Sega character"},
-    "789": {"title": "A Quiet Place", "description": "Scary monsters"},
+    "123": {
+        "title": "Top Gun: Maverick",
+        "description": "A fearless Navy pilot returns to the skies for one last mission and must confront his past while leading a new generation of fighter pilots.",
+    },
+    "456": {
+        "title": "Sonic the Hedgehog",
+        "description": "A fast-paced adventure follows Sonic as he races across the world to stop Dr. Robotnik from capturing the power of a mysterious emerald.",
+    },
+    "789": {
+        "title": "A Quiet Place",
+        "description": "A family must stay completely silent to survive a terrifying creature that hunts by sound in a desolate, post-apocalyptic world.",
+    },
 }
 
 
