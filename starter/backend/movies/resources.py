@@ -9,7 +9,7 @@ movies = {
     },
     "456": {
         "title": "Sonic the Hedgehog",
-        "description": "A fast-paced adventure follows Sonic as he races across the world to stop Dr. Robotnik from capturing the power of a mysterious emerald.",
+        "description": "Sonic teams up with new friends to protect a powerful emerald while Dr. Robotnik returns with a formidable rival.",
     },
     "789": {
         "title": "A Quiet Place",
