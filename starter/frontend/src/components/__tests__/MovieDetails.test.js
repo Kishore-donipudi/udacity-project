@@ -30,3 +30,20 @@ test('renders Top Gun movie details', async () => {
   expect(screen.getByText('Pete Maverick Mitchell returns to train an elite team.')).toBeInTheDocument();
   expect(axios.get).toHaveBeenCalledWith('http://127.0.0.1:5000/movies/123');
 });
+
+test('renders Sonic movie details', async () => {
+  axios.get.mockResolvedValueOnce({
+    data: {
+      movie: {
+        title: 'Sonic the Hedgehog',
+        description: 'Sonic teams up with new friends to protect a powerful emerald.',
+      },
+    },
+  });
+
+  render(<MovieDetails movie={{ id: '456' }} />);
+
+  expect(await screen.findByRole('heading', { name: 'Sonic the Hedgehog' })).toBeInTheDocument();
+  expect(screen.getByText('Sonic teams up with new friends to protect a powerful emerald.')).toBeInTheDocument();
+  expect(axios.get).toHaveBeenCalledWith('http://127.0.0.1:5000/movies/456');
+});
