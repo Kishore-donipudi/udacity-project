@@ -1,14 +1,23 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import axios from 'axios';
 import MovieList from '../MovieList';
 
-jest.mock('axios');
+jest.mock('axios', () => {
+  const mockAxios = { get: jest.fn() };
+  return { __esModule: true, default: mockAxios };
+});
+
+const axios = require('axios').default;
 
 const mockMovies = [
   { id: 1, title: 'Movie 1' },
   { id: 2, title: 'Movie 2' },
 ];
+
+beforeEach(() => {
+  process.env.REACT_APP_MOVIE_API_URL = 'http://127.0.0.1:5000';
+  axios.get.mockReset();
+});
 
 test('renders movie titles', async () => {
   axios.get.mockResolvedValueOnce({ data: { movies: mockMovies } });
@@ -21,6 +30,17 @@ test('renders movie titles', async () => {
 
   expect(movie1).toBeInTheDocument();
   expect(movie2).toBeInTheDocument();
+});
+
+test('uses the local backend URL when the env var is missing', async () => {
+  delete process.env.REACT_APP_MOVIE_API_URL;
+  axios.get.mockResolvedValueOnce({ data: { movies: mockMovies } });
+
+  render(<MovieList onMovieClick={jest.fn()} />);
+
+  await screen.findByText(/Movie 1/);
+
+  expect(axios.get).toHaveBeenCalledWith('http://127.0.0.1:5000/movies');
 });
 
 test('calls onMovieClick when movie is clicked', async () => {

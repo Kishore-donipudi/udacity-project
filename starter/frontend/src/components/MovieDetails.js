@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_MOVIE_API_URL || 'http://127.0.0.1:5000';
+
 function MovieDetail({ movie }) {
   const [details, setDetails] = useState(null);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_MOVIE_API_URL}/movies/${movie.id}`).then((response) => {
+    axios.get(`${API_BASE_URL}/movies/${movie.id}`).then((response) => {
       setDetails(response.data);
     });
   }, [movie]);
