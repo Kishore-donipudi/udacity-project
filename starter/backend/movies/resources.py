@@ -5,15 +5,24 @@ from flask.views import MethodView
 movies = {
     "123": {
         "title": "Top Gun: Maverick",
-        "description": "Pete Maverick Mitchell returns to train an elite team for a dangerous mission that forces him to face the risks of his past.",
+        "description": (
+            "Pete Maverick Mitchell returns to train an elite team for a dangerous mission "
+            "that forces him to face the risks of his past."
+        ),
     },
     "456": {
         "title": "Sonic the Hedgehog",
-        "description": "Sonic teams up with new friends to protect a powerful emerald while Dr. Robotnik returns with a formidable rival.",
+        "description": (
+            "Sonic teams up with new friends to protect a powerful emerald while Dr. Robotnik "
+            "returns with a formidable rival."
+        ),
     },
     "789": {
         "title": "A Quiet Place",
-        "description": "The Abbott family searches for a way forward while remaining silent against creatures that hunt every sound they make.",
+        "description": (
+            "The Abbott family searches for a way forward while remaining silent against "
+            "creatures that hunt every sound they make."
+        ),
     },
 }
 
