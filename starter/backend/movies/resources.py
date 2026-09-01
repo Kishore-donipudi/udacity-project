@@ -5,7 +5,7 @@ from flask.views import MethodView
 movies = {
     "123": {
         "title": "Top Gun: Maverick",
-        "description": "A fearless Navy pilot returns to the skies for one last mission and must confront his past while leading a new generation of fighter pilots.",
+        "description": "Pete Maverick Mitchell returns to train an elite team for a dangerous mission that forces him to face the risks of his past.",
     },
     "456": {
         "title": "Sonic the Hedgehog",
