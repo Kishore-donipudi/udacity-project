@@ -13,7 +13,7 @@ movies = {
     },
     "789": {
         "title": "A Quiet Place",
-        "description": "A family must stay completely silent to survive a terrifying creature that hunts by sound in a desolate, post-apocalyptic world.",
+        "description": "The Abbott family searches for a way forward while remaining silent against creatures that hunt every sound they make.",
     },
 }
 
