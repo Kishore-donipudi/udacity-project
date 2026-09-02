@@ -100,3 +100,4 @@ jobs:
       - name: Build Docker image
         working-directory: starter/backend
         run: docker build --tag mp-backend:latest .
+
