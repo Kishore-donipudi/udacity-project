@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Cache Python dependencies
         uses: actions/cache@v3
         with:
@@ -26,14 +26,14 @@ jobs:
           key: ${{ runner.os }}-pipenv-${{ hashFiles('starter/backend/Pipfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pipenv-
-      
+
       - name: Install pipenv
         run: pip install pipenv
-      
+
       - name: Install dependencies
         working-directory: starter/backend
         run: pipenv install --dev
-      
+
       - name: Run linter
         working-directory: starter/backend
         run: pipenv run lint
@@ -42,12 +42,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Cache Python dependencies
         uses: actions/cache@v3
         with:
@@ -55,14 +55,14 @@ jobs:
           key: ${{ runner.os }}-pipenv-${{ hashFiles('starter/backend/Pipfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pipenv-
-      
+
       - name: Install pipenv
         run: pip install pipenv
-      
+
       - name: Install dependencies
         working-directory: starter/backend
         run: pipenv install --dev
-      
+
       - name: Run tests
         working-directory: starter/backend
         run: pipenv run test
@@ -74,12 +74,12 @@ jobs:
       image_uri: ${{ steps.build.outputs.image_uri }}
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Cache Python dependencies
         uses: actions/cache@v3
         with:
@@ -87,33 +87,29 @@ jobs:
           key: ${{ runner.os }}-pipenv-${{ hashFiles('starter/backend/Pipfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pipenv-
-      
+
       - name: Install pipenv
         run: pip install pipenv
-      
+
       - name: Install dependencies
         working-directory: starter/backend
         run: pipenv install --dev
-      
+
       - name: Run tests
         working-directory: starter/backend
         run: pipenv run test
-      
-      - name: Build application
-        working-directory: starter/backend
-        run: python -m py_compile movies/*.py
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      
+
       - name: Build and push Docker image
         id: build
         working-directory: starter/backend
@@ -130,17 +126,17 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      
+
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name ${{ secrets.CLUSTER_NAME }} --region us-east-1
-      
+
       - name: Deploy to Kubernetes
         working-directory: starter/backend/k8s
         run: |

@@ -13,24 +13,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      
+
       - name: Cache Node.js dependencies
         uses: actions/cache@v3
         with:
-          path: starter/frontend/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('starter/frontend/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
-      
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         working-directory: starter/frontend
         run: npm ci
-      
+
       - name: Run linter
         working-directory: starter/frontend
         run: npm run lint
@@ -39,24 +39,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      
+
       - name: Cache Node.js dependencies
         uses: actions/cache@v3
         with:
-          path: starter/frontend/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('starter/frontend/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
-      
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         working-directory: starter/frontend
         run: npm ci
-      
+
       - name: Run tests
         working-directory: starter/frontend
         run: CI=true npm test
@@ -66,28 +66,32 @@ jobs:
     needs: [lint, test]
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      
+
       - name: Cache Node.js dependencies
         uses: actions/cache@v3
         with:
-          path: starter/frontend/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('starter/frontend/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
-      
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         working-directory: starter/frontend
         run: npm ci
-      
+
       - name: Run tests
         working-directory: starter/frontend
         run: CI=true npm test
-      
+
       - name: Build application
         working-directory: starter/frontend
         run: npm run build
+
+      - name: Build Docker image
+        working-directory: starter/frontend
+        run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
