@@ -2,6 +2,11 @@
 
 You've been brought on as the DevOps resource for a development team that manages a web application that is a catalog of Movie Picture movies. They're in dire need of automating their development workflows in hopes of accelerating their release cycle. They'd like to use Github Actions to automate testing, building and deploying their applications to an existing Kubernetes cluster.
 
+Github-repo:- https://github.com/Kishore-donipudi/udacity-project
+Frontend_url :- http://a999df8a7c5c640919dd35ec7ec0bcfd-263927462.us-east-1.elb.amazonaws.com/
+Backend_url:- http://a04e579cdf5a34289a0f686fc562afbb-1684374068.us-east-1.elb.amazonaws.com/movies
+
+
 The team's project is comprised of 2 applications.
 
 1. A frontend UI written in Typescript, using the React framework
